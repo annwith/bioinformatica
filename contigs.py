@@ -26,7 +26,7 @@ p = subprocess.call([
 ])
 
 # Next it makes FASTA files from the "phd" files by running the phd2fasta program.
-# phd2fasta -id phd_dir -os seqs_fasta -oq seqs_fasta.screen.qual
+# phd2fasta -id phd_dir -os seqs_fasta -oq seqs_fasta.qual
 p = subprocess.call([
   "phd2fasta", 
   "-id", 
@@ -34,11 +34,12 @@ p = subprocess.call([
   "-os", 
   "seqs_fasta", 
   "-oq", 
-  "seqs_fasta.screen.qual"
+  "seqs_fasta.qual"
 ])
 
 # Subsequently it screens out the vector in the sequences in "seqs_fasta" using cross_match:
 # cross_match seqs_fasta vector.seq -minmatch 12 -minscore 20 -screen > screen.out
+# which generates the screened sequence file "seqs_fasta.screen",
 p = subprocess.call([
   "cross_match", 
   "seqs_fasta", 
@@ -50,7 +51,6 @@ p = subprocess.call([
   "-screen"
 ])
 
-# which generates the screened sequence file "seqs_fasta.screen",
 # It runs phrap to perform the sequence assembly as follows:
 # phrap seqs_fasta.screen -new_ace > phrap.out
 p = subprocess.call([
